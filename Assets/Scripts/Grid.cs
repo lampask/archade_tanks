@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class Grid : MonoBehaviour
 {
     public Vector2 dimensions;
-    public int startLevel;
+    public int currentLevel;
     public int bottomOffset = 40;
     [Header("Resources")] public GameObject data;
     public Camera camRef;
@@ -22,7 +22,7 @@ public class Grid : MonoBehaviour
         camRef.transform.position = dimensions / 2 * _scale / 6.25f - Vector2.one * _scale / 6.25f / 2f;
         camRef.transform.position += Vector3.back * 10;
         
-        Generate(startLevel);
+        Generate(currentLevel);
     }
 
     public void Generate(int level)
