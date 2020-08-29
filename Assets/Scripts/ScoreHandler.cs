@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class ScoreHandler : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ScoreHandler : MonoBehaviour
     public TMP_Text player2ScoreText;
     private int player1Score = 0;
     private int player2Score = 0;
+   
 
     private void Awake()
     {
@@ -35,5 +37,5 @@ public class ScoreHandler : MonoBehaviour
         player2Score += score;
         player2ScoreText.text = player2Score.ToString();
     }
-   
+
 }

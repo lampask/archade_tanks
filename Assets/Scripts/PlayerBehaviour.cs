@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using TMPro;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class PlayerBehaviour : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip explosionSound;
     public float volume = 0.1f;
+    public TMP_Text pauseText;
+    private bool paused = false;
 
 
     private Color _cHolder;
@@ -40,6 +43,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Instantiate(hearthImage, livesContainer);
         }
+        pauseText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -129,7 +133,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnMenu(InputValue _)
     {
-        Debug.Log("sfgs");
+        Debug.Log("Pause");
+        paused = !paused;
+        if (paused)
+        {
+            Time.timeScale = 0;
+            
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        pauseText.gameObject.SetActive(paused);
     }
 
     private void Fire()
