@@ -27,14 +27,6 @@ public class EnemyBehavior : MonoBehaviour
         if (_snapshot + waitTime < Time.time)
         {
             _snapshot = Time.time;
-            var hit = Physics2D.Raycast(transform.position + new Vector3(directions.x, directions.y, 0) * unitSize, Vector3.back, 20);
-            if (hit.collider != null)
-            {
-                if (hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("Player"))
-                {
-                    directions = -directions;
-                }
-            }
             MoveOrChangeDirection();
             if (counter >= fieldsBetweenShoot)
             {
@@ -48,6 +40,15 @@ public class EnemyBehavior : MonoBehaviour
     {
         var directionChanger = Random.Range(0, 16);
 
+        var hit = Physics2D.Raycast(transform.position + new Vector3(directions.x, directions.y, 0) * unitSize, Vector3.back, 20);
+        if (hit.collider != null)
+        {
+            if (hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2") || hit.collider.CompareTag("Enemy"))
+            {
+                directions = -directions;
+            }
+        }
+        
         switch (directionChanger)
         {
             case 0:

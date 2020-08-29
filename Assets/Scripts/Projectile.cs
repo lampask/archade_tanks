@@ -26,6 +26,13 @@ public class Projectile : MonoBehaviour
         {
             _snapshot = Time.time;
             transform.position += new Vector3(direction.x, direction.y, 0) * unitSize;
+            var ts = transform.position;
+            transform.position = new Vector3(transform.position.x < 0 ? (Grid.instance.dimensions.x - 1) * unitSize : transform.position.x % (Grid.instance.dimensions.x * unitSize),
+                transform.position.y < 0 ? (Grid.instance.dimensions.y - 1) * unitSize : transform.position.y % (Grid.instance.dimensions.y * unitSize), 0);
+            if (transform.position != ts)
+            {
+                GetComponent<TrailRenderer>().Clear();
+            }
             _lifetime++;
         }
     }

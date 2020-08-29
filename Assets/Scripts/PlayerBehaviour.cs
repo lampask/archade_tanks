@@ -58,11 +58,26 @@ public class PlayerBehaviour : MonoBehaviour
                     var hit = Physics2D.Raycast(
                         transform.position + new Vector3(directions.x, directions.y, 0) * unitSize,
                         Vector3.back, 20);
+                    
+                    // MORE CHECKS
+                    var leftHit = Physics2D.Raycast(
+                        transform.position + new Vector3(directions.x, directions.y, 0) * unitSize,
+                        Vector3.back, 20);
+                    var rightHit = Physics2D.Raycast(
+                        transform.position + new Vector3(directions.x, directions.y, 0) * unitSize,
+                        Vector3.back, 20);
+                    
                     if (hit.collider != null)
                     {
-                        if (hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("Player"))
+                        if (hit.collider.CompareTag("Obstacle"))
                         {
                             TakeHit();
+                            directions = -directions;
+                        }
+
+                        if (hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2") ||
+                            hit.collider.CompareTag("Enemy"))
+                        {
                             directions = -directions;
                         }
                     }
@@ -132,12 +147,11 @@ public class PlayerBehaviour : MonoBehaviour
     private IEnumerator HitEffect()
     {
         var sr = GetComponent<SpriteRenderer>();
-        var baseCol = sr.color;
         for (var i = 0; i < 3; i++)
         {
             sr.color = Color.red;
             yield return new WaitForSeconds(.1f);
-            sr.color = baseCol;
+            sr.color = Color.white;
             yield return new WaitForSeconds(.15f);
         }
     }

@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreHandler : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Text player1ScoreText;
-    public Text player2ScoreText;
+    public TMP_Text player1ScoreText;
+    public TMP_Text player2ScoreText;
     private int player1Score = 0;
     private int player2Score = 0;
 
