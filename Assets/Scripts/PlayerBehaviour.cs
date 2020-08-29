@@ -20,13 +20,22 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Resources")] 
     public Grid playBoardData;
     public GameObject projectilePrefab;
-    
+    public Transform livesContainer;
+    public GameObject hearthImage;
+
+
+
     private float _snapshot;
     private bool firing = false;
 
     private void Start()
     {
         _snapshot = Time.time;
+
+        for (var i = 0; i < lives; i++)
+        {
+            Instantiate(hearthImage, livesContainer);
+        }
     }
 
     private void Update()
@@ -108,13 +117,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeHit()
     {
-        if (--lives <= 0)
+        if (lives-- <= 0)
         {
             // TODO: Die
             Debug.Log("Die");
             return;  
         }
 
+        var currentLive = livesContainer.GetChild(0);
+        Destroy(currentLive.gameObject);
         StartCoroutine(HitEffect());
     }
     
