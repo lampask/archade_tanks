@@ -28,14 +28,14 @@ public class PlayerBehaviour : MonoBehaviour
     public float volume = 0.1f;
 
 
-
+    private Color _cHolder;
     private float _snapshot;
-    private bool firing = false;
+    private bool _firing = false;
 
     private void Start()
     {
         _snapshot = Time.time;
-
+        _cHolder = GetComponent<SpriteRenderer>().color;
         for (var i = 0; i < lives; i++)
         {
             Instantiate(hearthImage, livesContainer);
@@ -76,7 +76,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (hit.collider.CompareTag("Obstacle"))
                         {
                             TakeHit();
-                            AudioSource.PlayClipAtPoint(bounceSound, Camera.main.transform.position, volume);
+                            AudioSource.PlayClipAtPoint(bounceSound, transform.position, volume);
                             directions = -directions;
                         }
 
@@ -98,12 +98,12 @@ public class PlayerBehaviour : MonoBehaviour
                     transform.position.y < 0
                         ? (playBoardData.dimensions.y - 1) * unitSize
                         : transform.position.y % (playBoardData.dimensions.y * unitSize), 0);
-                if (firing)
+                if (_firing)
                 {
                     Fire();
                 }
 
-                firing = false;
+                _firing = false;
             }
         }
     }
@@ -120,11 +120,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnFire(InputValue _)
     {
-        if (!firing)
+        if (!_firing)
         {
-            firing = true;
+            _firing = true;
         }
         Debug.Log($"{gameObject.name} Fire");
+    }
+
+    private void OnMenu(InputValue _)
+    {
+        Debug.Log("sfgs");
     }
 
     private void Fire()
@@ -133,7 +138,7 @@ public class PlayerBehaviour : MonoBehaviour
                             Quaternion.identity).GetComponent<Projectile>();
             proj.direction = directions;
             proj.origin = gameObject;
-        AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, volume);
+        AudioSource.PlayClipAtPoint(shootSound, transform.position, volume);
     }
 
     public void TakeHit()
@@ -141,7 +146,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (lives-- <= 0)
         {
             // TODO: Die
-            AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, volume);
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position, volume);
             Debug.Log("Die");
             return;  
         }
@@ -158,7 +163,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             sr.color = Color.red;
             yield return new WaitForSeconds(.1f);
-            sr.color = Color.white;
+            sr.color = _cHolder;
             yield return new WaitForSeconds(.15f);
         }
     }

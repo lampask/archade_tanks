@@ -70,6 +70,8 @@ public class EnemyBehavior : MonoBehaviour
                 break;
         }
         transform.position += new Vector3(directions.x, directions.y, 0) * unitSize;
+        transform.rotation = Quaternion.Euler(0, 0,
+            (directions.x != 0 ? -directions.x : 1) * Vector2.Angle(Vector2.up, directions));
         transform.position = new Vector3(transform.position.x < 0 ? (playBoardData.dimensions.x - 1) * unitSize : transform.position.x % (playBoardData.dimensions.x * unitSize),
         transform.position.y < 0 ? (playBoardData.dimensions.y - 1) * unitSize : transform.position.y % (playBoardData.dimensions.y * unitSize), 0);
     }

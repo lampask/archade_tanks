@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "633979b4-e4dc-4e60-b532-e21dd595cb1f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -42,6 +50,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4c74197-e9c1-4d4f-8218-5759f2d14d46",
+                    "path": "<HID::USB gamepad           >/button2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControlScheme1;ControlScheme2",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
