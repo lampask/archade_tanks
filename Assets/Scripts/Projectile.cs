@@ -42,5 +42,11 @@ public class Projectile : MonoBehaviour
             var pb = other.gameObject.GetComponent<PlayerBehaviour>();
             if (other.gameObject != origin) pb.TakeHit();
         }
+        else if (other.CompareTag("Enemy"))
+        {
+            var pb = other.gameObject.GetComponent<EnemyBehavior>();
+            if (other.gameObject != origin) pb.TakeHit();
+        }
+
     }
 }
