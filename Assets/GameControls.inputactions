@@ -1,0 +1,85 @@
+{
+    "name": "GameControls",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "3b597800-a115-465d-9c23-959a55f5c2ff",
+            "actions": [
+                {
+                    "name": "ChangeMovement",
+                    "type": "Value",
+                    "id": "2228953f-1fdc-404c-9a31-3e3a82ed66f4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "c7ab240c-08fd-4949-9d28-317a79266510",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "78d32d06-0f4c-4257-9693-c6746e9c081d",
+                    "path": "<Joystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17e75a72-90d8-4bbe-80c4-d7166992fc08",
+                    "path": "<Joystick>/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "ControlScheme1",
+            "bindingGroup": "ControlScheme1",
+            "devices": [
+                {
+                    "devicePath": "<HID::USB gamepad           >",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<HID::DragonRise Inc.   Generic   USB  Joystick  >",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "ControlScheme2",
+            "bindingGroup": "ControlScheme2",
+            "devices": [
+                {
+                    "devicePath": "<HID::USB gamepad           >",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<HID::DragonRise Inc.   Generic   USB  Joystick  >",
+                    "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
