@@ -9,7 +9,10 @@ public class EnemyBehavior : MonoBehaviour
     public int unitSize = 20;
     [Header("Resources")]
     public GameObject projectilePrefab;
+    public AudioClip explosionSound;
+    public AudioClip shootSound;
     public int fieldsBetweenShoot = 6;
+    public float volume = 0.05f;
     private Grid playBoardData;
     private Vector2 directions;
     private int counter = 0;
@@ -75,6 +78,7 @@ public class EnemyBehavior : MonoBehaviour
         counter = 0;
         var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0),
                             Quaternion.identity).GetComponent<Projectile>();
+        AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, volume);
         proj.direction = directions;
         proj.origin = gameObject;
     }
@@ -82,6 +86,7 @@ public class EnemyBehavior : MonoBehaviour
     public void TakeHit()
     {
         //StartCoroutine(HitEffect());
+        AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position,volume);
         Destroy(gameObject);
     }
 
