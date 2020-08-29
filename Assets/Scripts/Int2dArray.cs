@@ -18,8 +18,8 @@ public class Int2dArray
         get { return m [index]; }
         set { m [index] = value; }
     }
-    public int this[int y, int x] {
-        get { return m [y * this.x + x]; }
-        set { m [y * this.x + x] = value; }
+    public int this[int x, int y] {
+        get { return m [(this.y-1 -y) * this.x + x]; }
+        set { m [(this.y-1 -y) * this.x + x] = value; }
     }
 }

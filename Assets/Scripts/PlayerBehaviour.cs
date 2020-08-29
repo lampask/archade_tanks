@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [FormerlySerializedAs("ID")] public int id;
     [SerializeField] private Vector2 directions;
     public int unitSize = 20;
     public float waitTime = .2f;
@@ -40,6 +39,16 @@ public class PlayerBehaviour : MonoBehaviour
                 if (transform.position.x + directions.x * unitSize < 0 ||
                     transform.position.y + directions.y * unitSize < 0) return;
             }
+            var hit = Physics2D.Raycast(new Vector3(directions.x, directions.y, 0) * unitSize, Vector2.down, 20);
+            if (hit.collider != null)
+            {
+                Debug.Log("sdf");
+                if (hit.collider.CompareTag("Obstacle"))
+                {
+                    TakeHit();
+                    directions = -directions;
+                }
+            }
             transform.position += new Vector3(directions.x, directions.y, 0) * unitSize;
             transform.position = new Vector3(transform.position.x < 0 ? (playBoardData.dimensions.x-1)*unitSize : transform.position.x % (playBoardData.dimensions.x*unitSize), 
                 transform.position.y < 0 ? (playBoardData.dimensions.y-1)*unitSize : transform.position.y % (playBoardData.dimensions.y*unitSize), 0);
@@ -61,7 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
         var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0), 
                 Quaternion.identity).GetComponent<Projectile>();
         proj.direction = directions;
-        proj.origin = id;
+        proj.origin = gameObject;
         Debug.Log($"{gameObject.name} Fire");
     }
 

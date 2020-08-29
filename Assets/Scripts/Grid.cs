@@ -32,7 +32,7 @@ public class Grid : MonoBehaviour
         {
             for (var y = 0; y < dimensions.y; y++)
             {
-                var a = Instantiate(blocks[l.layout[(int) dimensions.y-1 - y, x]], transform);
+                var a = Instantiate(blocks[l.layout[x, y]], transform);
                 a.transform.localPosition = new Vector3(x * _scale/7.5f, y * _scale/7.5f, 0);
                 a.transform.localScale = Vector3.one * _scale;
             }

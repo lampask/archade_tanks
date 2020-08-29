@@ -259,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d63767dc893462498d46af29868c113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
   directions: {x: 0, y: 0}
   unitSize: 20
   waitTime: 0.2
@@ -422,7 +421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d63767dc893462498d46af29868c113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
   directions: {x: 0, y: 0}
   unitSize: 20
   waitTime: 0.2
