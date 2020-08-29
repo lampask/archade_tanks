@@ -20,8 +20,9 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Resources")] 
     public Grid playBoardData;
     public GameObject projectilePrefab;
-    
+
     private float _snapshot;
+
     private void Start()
     {
         _snapshot = Time.time;
@@ -69,9 +70,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (--lives <= 0)
         {
             // TODO: Die
+            
             Debug.Log("Die");
             return;  
         }
+        // TODO: Hit logic
         Debug.Log("Hit");
     }
 }

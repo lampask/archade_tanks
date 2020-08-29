@@ -640,7 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77a25b051c14fda91f56a0b668e27d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dimensions: {x: 20, y: 20}
+  dimensions: {x: 20, y: 12}
   bottomOffset: 25
   data: {fileID: 4672230491631720870, guid: e5804eb81d18a524aa53ef7ea2f1b17b, type: 3}
   camRef: {fileID: 519420031}
