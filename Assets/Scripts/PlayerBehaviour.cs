@@ -19,7 +19,10 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Resources")] 
     public Grid playBoardData;
     public GameObject projectilePrefab;
-    
+    public List<GameObject> livesImages;
+
+
+
     private float _snapshot;
     private bool firing = false;
 
@@ -90,12 +93,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeHit()
     {
-        if (--lives <= 0)
+        if (lives-- <= 0)
         {
             // TODO: Die
             Debug.Log("Die");
             return;  
         }
+        var currentLive = livesImages[livesImages.Count-1];
+        Destroy(currentLive);
+        livesImages.Remove(currentLive);
         Debug.Log("Hit");
     }
 }
