@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [FormerlySerializedAs("ID")] public int id;
     [SerializeField] private Vector2 directions;
     public int unitSize = 20;
     public float waitTime = .2f;
@@ -22,6 +21,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject projectilePrefab;
     
     private float _snapshot;
+    private bool firing = false;
+
     private void Start()
     {
         _snapshot = Time.time;
@@ -42,6 +43,11 @@ public class PlayerBehaviour : MonoBehaviour
             transform.position += new Vector3(directions.x, directions.y, 0) * unitSize;
             transform.position = new Vector3(transform.position.x < 0 ? (playBoardData.dimensions.x-1)*unitSize : transform.position.x % (playBoardData.dimensions.x*unitSize), 
                 transform.position.y < 0 ? (playBoardData.dimensions.y-1)*unitSize : transform.position.y % (playBoardData.dimensions.y*unitSize), 0);
+            if (firing)
+            {
+                Fire();
+            }
+            firing = false;
         }
     }
     
@@ -57,11 +63,19 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnFire(InputValue _)
     {
-        var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0), 
-                Quaternion.identity).GetComponent<Projectile>();
-        proj.direction = directions;
-        proj.origin = id;
-        Debug.Log($"{gameObject.name} Fire");
+        if (!firing)
+        {
+            firing = true;
+        }
+    }
+
+    private void Fire()
+    {
+            var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0),
+                            Quaternion.identity).GetComponent<Projectile>();
+            proj.direction = directions;
+            proj.origin = gameObject;
+            Debug.Log($"{gameObject.name} Fire");
     }
 
     public void TakeHit()

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int origin;
+    public GameObject origin;
     public Vector2 direction;
     public int unitSize = 20;
     public float waitTime = .1f;
@@ -40,7 +40,13 @@ public class Projectile : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             var pb = other.gameObject.GetComponent<PlayerBehaviour>();
-            if (pb.id != origin) pb.TakeHit();
+            if (other.gameObject != origin) pb.TakeHit();
         }
+        else if (other.CompareTag("Enemy"))
+        {
+            var pb = other.gameObject.GetComponent<EnemyBehavior>();
+            if (other.gameObject != origin) pb.TakeHit();
+        }
+
     }
 }
