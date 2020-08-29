@@ -699,6 +699,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8105603265558540960, guid: 29bccb85ef94ad34a9c154c4decb56fb, type: 3}
   livesContainer: {fileID: 1305699249}
   hearthImage: {fileID: 427908937391603047, guid: f198de920784d724abe3aafb096d033e, type: 3}
+  bounceSound: {fileID: 8300000, guid: 4ca275e719dff4b8ea22102d22fc0eca, type: 3}
+  shootSound: {fileID: 8300000, guid: 8b053e1e2f73146468f4903009f0bd7c, type: 3}
+  volume: 0.1
 --- !u!114 &715963479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1708,6 +1711,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 8105603265558540960, guid: 29bccb85ef94ad34a9c154c4decb56fb, type: 3}
   livesContainer: {fileID: 753744335}
   hearthImage: {fileID: 427908937391603047, guid: f198de920784d724abe3aafb096d033e, type: 3}
+  bounceSound: {fileID: 8300000, guid: 4ca275e719dff4b8ea22102d22fc0eca, type: 3}
+  shootSound: {fileID: 8300000, guid: 8b053e1e2f73146468f4903009f0bd7c, type: 3}
+  volume: 0.1
 --- !u!114 &1964228568
 MonoBehaviour:
   m_ObjectHideFlags: 0

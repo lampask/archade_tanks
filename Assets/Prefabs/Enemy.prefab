@@ -125,4 +125,7 @@ MonoBehaviour:
   waitTime: 0.2
   unitSize: 20
   projectilePrefab: {fileID: 8105603265558540960, guid: 29bccb85ef94ad34a9c154c4decb56fb, type: 3}
+  explosionSound: {fileID: 8300000, guid: 397c70626c2814c178e45d955bbc8997, type: 3}
+  shootSound: {fileID: 8300000, guid: 6ff8a5745b724489fa6bec6e6eaab44b, type: 3}
   fieldsBetweenShoot: 6
+  volume: 0.05

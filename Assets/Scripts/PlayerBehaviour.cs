@@ -22,6 +22,10 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform livesContainer;
     public GameObject hearthImage;
+    public AudioClip bounceSound;
+    public AudioClip shootSound;
+    public AudioClip explosionSound;
+    public float volume = 0.1f;
 
 
 
@@ -63,6 +67,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("Player"))
                         {
                             TakeHit();
+                            AudioSource.PlayClipAtPoint(bounceSound, Camera.main.transform.position, volume);
                             directions = -directions;
                         }
                     }
@@ -113,6 +118,7 @@ public class PlayerBehaviour : MonoBehaviour
                             Quaternion.identity).GetComponent<Projectile>();
             proj.direction = directions;
             proj.origin = gameObject;
+        AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, volume);
     }
 
     public void TakeHit()
@@ -120,6 +126,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (lives-- <= 0)
         {
             // TODO: Die
+            AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, volume);
             Debug.Log("Die");
             return;  
         }
