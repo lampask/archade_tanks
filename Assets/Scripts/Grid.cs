@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public Vector2 dimensions;
-    public int startLevel;
+    public int currentLevel;
     public int bottomOffset = 40;
     [Header("Resources")] public GameObject data;
     public Camera camRef;
@@ -21,7 +21,7 @@ public class Grid : MonoBehaviour
         camRef.transform.position = dimensions / 2 * _scale / 7.5f - Vector2.one * _scale / 7.5f / 2f;
         camRef.transform.position += Vector3.back * 10;
         
-        Generate(startLevel);
+        Generate(currentLevel);
     }
 
     public void Generate(int level)
