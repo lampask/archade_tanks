@@ -19,13 +19,13 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        if (_lifetime == lifespan) Remove();
         if (_snapshot + waitTime < Time.time)
         {
             _snapshot = Time.time;
             transform.position += new Vector3(direction.x, direction.y, 0) * unitSize;
             _lifetime++;
         }
-        if (_lifetime == lifespan) Remove();
     }
 
     public void Remove()
@@ -47,6 +47,6 @@ public class Projectile : MonoBehaviour
             var pb = other.gameObject.GetComponent<EnemyBehavior>();
             if (other.gameObject != origin) pb.TakeHit();
         }
-
+        _lifetime = lifespan;
     }
 }

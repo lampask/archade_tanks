@@ -12,6 +12,8 @@
           <e p="LevelDrawer.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="EnemyBehavior.cs" t="Include" />
+          <e p="EnemySpawner.cs" t="Include" />
           <e p="Grid.cs" t="Include" />
           <e p="Int2dArray.cs" t="Include" />
           <e p="LevelData.cs" t="Include" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     [Header("Game Stats")] 
     public int score;
-    public int lives = 3;
+    public int lives = 10;
     public int ammo = 5;
     
     [Header("Resources")] 
@@ -33,31 +34,48 @@ public class PlayerBehaviour : MonoBehaviour
         if (_snapshot + waitTime < Time.time)
         {
             _snapshot = Time.time;
-            if (bordered)
+            if (lives > 0)
             {
-                if (playBoardData.dimensions.x * unitSize <= transform.position.x + directions.x * unitSize ||
-                    playBoardData.dimensions.y * unitSize <= transform.position.y + directions.y * unitSize) return;
-                if (transform.position.x + directions.x * unitSize < 0 ||
-                    transform.position.y + directions.y * unitSize < 0) return;
-            }
-            var hit = Physics2D.Raycast(new Vector3(directions.x, directions.y, 0) * unitSize, Vector2.down, 20);
-            if (hit.collider != null)
-            {
-                Debug.Log("sdf");
-                if (hit.collider.CompareTag("Obstacle"))
+                if (bordered)
                 {
-                    TakeHit();
-                    directions = -directions;
+                    if (playBoardData.dimensions.x * unitSize <= transform.position.x + directions.x * unitSize ||
+                        playBoardData.dimensions.y * unitSize <= transform.position.y + directions.y * unitSize) return;
+                    if (transform.position.x + directions.x * unitSize < 0 ||
+                        transform.position.y + directions.y * unitSize < 0) return;
                 }
+
+                if (directions != Vector2.zero)
+                {
+                    var hit = Physics2D.Raycast(
+                        transform.position + new Vector3(directions.x, directions.y, 0) * unitSize,
+                        Vector3.back, 20);
+                    if (hit.collider != null)
+                    {
+                        if (hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("Player"))
+                        {
+                            TakeHit();
+                            directions = -directions;
+                        }
+                    }
+                }
+
+                transform.position += new Vector3(directions.x, directions.y, 0) * unitSize;
+                transform.rotation = Quaternion.Euler(0, 0,
+                    (directions.x != 0 ? -directions.x : 1) * Vector2.Angle(Vector2.up, directions));
+                transform.position = new Vector3(
+                    transform.position.x < 0
+                        ? (playBoardData.dimensions.x - 1) * unitSize
+                        : transform.position.x % (playBoardData.dimensions.x * unitSize),
+                    transform.position.y < 0
+                        ? (playBoardData.dimensions.y - 1) * unitSize
+                        : transform.position.y % (playBoardData.dimensions.y * unitSize), 0);
+                if (firing)
+                {
+                    Fire();
+                }
+
+                firing = false;
             }
-            transform.position += new Vector3(directions.x, directions.y, 0) * unitSize;
-            transform.position = new Vector3(transform.position.x < 0 ? (playBoardData.dimensions.x-1)*unitSize : transform.position.x % (playBoardData.dimensions.x*unitSize), 
-                transform.position.y < 0 ? (playBoardData.dimensions.y-1)*unitSize : transform.position.y % (playBoardData.dimensions.y*unitSize), 0);
-            if (firing)
-            {
-                Fire();
-            }
-            firing = false;
         }
     }
     
@@ -96,6 +114,20 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.Log("Die");
             return;  
         }
-        Debug.Log("Hit");
+
+        StartCoroutine(HitEffect());
+    }
+    
+    private IEnumerator HitEffect()
+    {
+        var sr = GetComponent<SpriteRenderer>();
+        var baseCol = sr.color;
+        for (var i = 0; i < 3; i++)
+        {
+            sr.color = Color.red;
+            yield return new WaitForSeconds(.1f);
+            sr.color = baseCol;
+            yield return new WaitForSeconds(.15f);
+        }
     }
 }

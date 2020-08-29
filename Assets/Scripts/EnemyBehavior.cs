@@ -16,17 +16,25 @@ public class EnemyBehavior : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         playBoardData = GameObject.Find("Manager").GetComponent<Grid>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_snapshot + waitTime < Time.time)
         {
             _snapshot = Time.time;
+            var hit = Physics2D.Raycast(transform.position + new Vector3(directions.x, directions.y, 0) * unitSize, Vector3.back, 20);
+            if (hit.collider != null)
+            {
+                if (hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("Player"))
+                {
+                    directions = -directions;
+                }
+            }
             MoveOrChangeDirection();
             if (counter >= fieldsBetweenShoot)
             {
@@ -38,7 +46,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void MoveOrChangeDirection()
     {
-        int directionChanger = Random.Range(0, 16);
+        var directionChanger = Random.Range(0, 16);
 
         switch (directionChanger)
         {
@@ -72,7 +80,20 @@ public class EnemyBehavior : MonoBehaviour
 
     public void TakeHit()
     {
+        //StartCoroutine(HitEffect());
         Destroy(gameObject);
     }
 
+    private IEnumerator HitEffect()
+    {
+        var sr = GetComponent<SpriteRenderer>();
+        var baseCol = sr.color;
+        for (var i = 0; i < 3; i++)
+        {
+            sr.color = Color.red;
+            yield return new WaitForSeconds(.1f);
+            sr.color = baseCol;
+            yield return new WaitForSeconds(.2f);
+        }
+    }
 }
