@@ -641,6 +641,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dimensions: {x: 20, y: 12}
+  startLevel: 0
   bottomOffset: 25
   data: {fileID: 4672230491631720870, guid: e5804eb81d18a524aa53ef7ea2f1b17b, type: 3}
   camRef: {fileID: 519420031}
+  levels:
+  - {fileID: 11400000, guid: d5bc72477552bd742b92d04af54ea9b5, type: 2}
+  blocks:
+  - {fileID: 4672230491631720870, guid: e5804eb81d18a524aa53ef7ea2f1b17b, type: 3}
+  - {fileID: 4672230491631720870, guid: 2492830f6986ea041bbe567296a3f249, type: 3}
