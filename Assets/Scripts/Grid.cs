@@ -83,7 +83,12 @@ public class Grid : MonoBehaviour
         StartCoroutine(Flash(0.5f));
         gameStart.AddListener(() =>
         {
+            if (!gameStarted)
+            {
+                maxEnemies = 2;
+            }
             _cas.Pause();
+            gameOver.gameObject.SetActive(false);
             camRef.transform.position = dimensions / 2 * _scale / 6.25f - Vector2.one * _scale / 6.25f / 2f;
             camRef.transform.position += Vector3.back * 10;
             starter.gameObject.SetActive(false);
@@ -97,6 +102,21 @@ public class Grid : MonoBehaviour
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
+
+            if (player1.lives == 0 && gameStarted)
+            {
+                player1.lives++;
+                player1.GetComponent<SpriteRenderer>().color = Color.white;
+                Instantiate(player1.hearthImage, player1.livesContainer);
+            }
+            
+            if (player2.lives == 0 && gameStarted)
+            {
+                player2.lives++;
+                player2.GetComponent<SpriteRenderer>().color = Color.white;
+                Instantiate(player2.hearthImage, player2.livesContainer);
+            }
+            
             gameStart.Invoke();
         }));
     }
@@ -146,7 +166,9 @@ public class Grid : MonoBehaviour
         yield return new WaitForSeconds(1);
         Time.timeScale = 0;
         gameOver.gameObject.SetActive(true);
-        // GO setup
+        var f = gameOver.GetChild(1).GetComponentsInChildren<TMP_Text>();
+        f[1].text = ScoreHandler.Instance.player1ScoreText.text;
+        var s = gameOver.GetChild(2);
         _cas.clip = menuMusic;
         gameStarted = false;
         starter.gameObject.SetActive(true);

@@ -33,6 +33,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float volume = 0.1f;
     public TMP_Text pauseText;
     private bool paused = false;
+    public Sprite brokenObstacle;
 
     
     private Color _cHolder;
@@ -47,6 +48,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (!Grid.instance.gameStarted)
             {
+                lives = 10;
+                GetComponent<SpriteRenderer>().color = Color.white;
                 _cHolder = GetComponent<SpriteRenderer>().color;
                 for (var i = 0; i < lives; i++)
                 {
@@ -120,10 +123,16 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     if (hit.collider != null)
                     {
-                        if (hit.collider.CompareTag("Obstacle"))
+                        if (hit.collider.CompareTag("Obstacle") || hit.collider.CompareTag("ObstacleDamagable"))
                         {
                             TakeHit();
                             directions = -directions;
+                            if (hit.collider.CompareTag("ObstacleDamagable"))
+                            {
+                                hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite = brokenObstacle;
+                                hit.collider.gameObject.tag = "Untagged";
+                                hit.collider.enabled = false;
+                            }
                         }
 
                         if (hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2") ||

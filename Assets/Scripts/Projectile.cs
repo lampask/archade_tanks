@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public float waitTime = .1f;
     public int lifespan = 10;
     private ScoreHandler scoreHandler;
+    public Sprite brokenObstacle;
 
     private float _snapshot;
     private int _lifetime;
@@ -71,6 +72,12 @@ public class Projectile : MonoBehaviour
                     pb.TakeHit();
                 }
             }
+        }
+        else if (other.CompareTag("ObstacleDamagable"))
+        {
+            other.GetComponent<SpriteRenderer>().sprite = brokenObstacle;
+            other.tag = "Untagged";
+            other.enabled = false;
         }
         _lifetime = lifespan;
     }

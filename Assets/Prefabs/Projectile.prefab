@@ -103,6 +103,7 @@ MonoBehaviour:
   unitSize: 20
   waitTime: 0.1
   lifespan: 10
+  brokenObstacle: {fileID: 21300000, guid: d1b5add876cbfee44baf3129f7c76baa, type: 3}
 --- !u!61 &253674810359349900
 BoxCollider2D:
   m_ObjectHideFlags: 0

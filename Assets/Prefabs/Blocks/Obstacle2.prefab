@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6761545518234742532}
   m_Layer: 0
   m_Name: Obstacle2
-  m_TagString: Obstacle
+  m_TagString: ObstacleDamagable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce0fcf4bc17255b4f8a38e42b059e9ed, type: 3}
-  m_Color: {r: 0.4666667, g: 0.95231897, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8e747c2be16aea94b85c3fde51a557ac, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

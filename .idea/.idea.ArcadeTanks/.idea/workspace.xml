@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3ec6d00d-079d-4011-a1fc-66b90df76a91" name="Default Changelist" comment="" />
+    <list default="true" id="3ec6d00d-079d-4011-a1fc-66b90df76a91" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ArcadeTanks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ArcadeTanks/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Blocks/Obstacle1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Blocks/Obstacle1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Blocks/Obstacle2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Blocks/Obstacle2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Projectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Projectile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GAME.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GAME.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Grid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Grid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScoreHandler.cs" root0="FORCE_HIGHLIGHTING" />
@@ -20,10 +32,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Int2dArray.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EnemySpawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Powerup.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EnemyBehavior.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/LevelData.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScoreHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Grid.cs" />
       </list>
@@ -68,6 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598644645126</updated>
       <workItem from="1598644674280" duration="72584000" />
+      <workItem from="1598793884761" duration="1900000" />
     </task>
     <servers />
   </component>
@@ -80,10 +93,10 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="627" y="258" width="666" height="534" key="find.popup" timestamp="1598792618696">
+    <state x="627" y="258" width="666" height="534" key="find.popup" timestamp="1598795814117">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="258" width="666" height="534" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1598792618696" />
+    <state x="627" y="258" width="666" height="534" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1598795814117" />
     <state x="616" y="243" key="run.anything.popup" timestamp="1598778703382">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -98,13 +111,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Projectile.cs</url>
-          <line>40</line>
+          <line>41</line>
           <properties documentPath="E:\GMS\ArcadeTanks\Assets\Scripts\Projectile.cs" initialLine="40">
             <startOffsets>
-              <option value="1287" />
+              <option value="1321" />
             </startOffsets>
             <endOffsets>
-              <option value="1288" />
+              <option value="1322" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="1" />
