@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Player1
   - Player2
+  - ObstacleDamagable
   layers:
   - Default
   - TransparentFX

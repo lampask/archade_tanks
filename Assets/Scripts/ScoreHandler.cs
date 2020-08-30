@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class ScoreHandler : MonoBehaviour
 {
+    public static ScoreHandler Instance;
     // Start is called before the first frame update
     public TMP_Text player1ScoreText;
     public TMP_Text player2ScoreText;
@@ -16,16 +17,16 @@ public class ScoreHandler : MonoBehaviour
 
     private void Awake()
     {
-        if (FindObjectsOfType(GetType()).Length > 1)
+        if (Instance == null || Instance.Equals(null))
         {
-            DestroyImmediate(gameObject);
+            Instance = this;
         }
         else
         {
-            DontDestroyOnLoad(gameObject);
-            addScoreToPlayerOne(0);
-            addScoreToPlayerTwo(0);
-        }
+            Destroy(gameObject);
+        } 
+        addScoreToPlayerOne(0);
+        addScoreToPlayerTwo(0);
     }
 
     public void addScoreToPlayerOne(int score) {

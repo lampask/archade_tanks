@@ -183,8 +183,9 @@ public class PlayerBehaviour : MonoBehaviour
             return;
         }
         AudioSource.PlayClipAtPoint(menuSound, camRef.transform.position, volume);
-        paused = !paused; 
-        Time.timeScale = paused ? 0 : 1; 
+        paused = !paused;
+        camRef.GetComponent<AudioSource>().pitch = paused ? 0.75f : 1;
+        Time.timeScale = paused ? 0 : 1;
         pauseText.gameObject.SetActive(paused);
     }
     
@@ -219,6 +220,8 @@ public class PlayerBehaviour : MonoBehaviour
             AudioSource.PlayClipAtPoint(deathSound, camRef.transform.position, volume);
             transform.GetChild(0).GetComponent<Animator>().SetTrigger(Explode);
             _cHolder = new Color(0.2f, 0.2f, 0.2f);
+            if (Grid.instance.player1.lives <= 0 && 0 >= Grid.instance.player2.lives)
+                StartCoroutine(Grid.instance.GameOver());
         }
         else
         {

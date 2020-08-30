@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,6 +24,10 @@ public class Grid : MonoBehaviour
     public AudioClip tickSound;
     public AudioClip confirmSound;
 
+    public PlayerBehaviour player1;
+    public PlayerBehaviour player2;
+    public Transform gameOver;
+    
     private float _gameTime;
     public float GameTime
     {
@@ -136,10 +141,26 @@ public class Grid : MonoBehaviour
         _cas.Play();
     }
 
+    public IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(1);
+        Time.timeScale = 0;
+        gameOver.gameObject.SetActive(true);
+        // GO setup
+        _cas.clip = menuMusic;
+        gameStarted = false;
+        starter.gameObject.SetActive(true);
+        starter.text = GameTime == 0 ? "- INSERT COIN TO PLAY -" : "- PRESS START TO PLAY -";
+        StartCoroutine(Flash(0.5f));
+    }
     
     public void Generate(int level)
     {
         var l = levels[level];
+        player1.transform.position = l.start1Pos * player1.unitSize;
+        player2.transform.position = l.start2Pos * player2.unitSize;
+        player1.transform.GetComponentsInChildren<TrailRenderer>().ToList().ForEach(x => x.Clear());
+        player2.transform.GetComponentsInChildren<TrailRenderer>().ToList().ForEach(x => x.Clear());
         // Generation
         for (var x = 0; x < dimensions.x; x++)
         {
