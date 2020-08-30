@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 253674810359349900}
   - component: {fileID: 5099298079025619532}
   - component: {fileID: 2416239552582487254}
+  - component: {fileID: -1406057447784661249}
   m_Layer: 0
   m_Name: Powerup
   m_TagString: Untagged
@@ -257,3 +258,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &-1406057447784661249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105603265558540960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097a393eefe847cfbf2561088e6ddc0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpSound: {fileID: 8300000, guid: 0591ee38f252fba429754c1785b2802d, type: 3}

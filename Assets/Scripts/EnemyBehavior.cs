@@ -11,6 +11,7 @@ public class EnemyBehavior : MonoBehaviour
     public int unitSize = 20;
     [Header("Resources")]
     public GameObject projectilePrefab;
+    public GameObject powerUpPrefab;
     public AudioClip explosionSound;
     public AudioClip shootSound;
     public int fieldsBetweenShoot = 6;
@@ -100,7 +101,9 @@ public class EnemyBehavior : MonoBehaviour
         if (Random.Range(0, 10) < 4)
         {
             // DROP
+            Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
         }
+        
         Destroy(gameObject);
     }
     
