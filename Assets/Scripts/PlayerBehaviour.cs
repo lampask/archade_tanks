@@ -179,7 +179,6 @@ public class PlayerBehaviour : MonoBehaviour
         var val = _.Get<Vector2>();
         if (Math.Abs(val.x) > .5f && Math.Abs(val.y) > .5f) return;
         if (val != Vector2.zero && val != directions) directions = new Vector2(Mathf.Round(val.x), Mathf.Round(val.y));
-        Debug.Log($"{gameObject.name} {_.Get<Vector2>().ToString()}");
     }
 
     private void OnFire(InputValue _)

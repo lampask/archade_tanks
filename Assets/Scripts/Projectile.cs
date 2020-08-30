@@ -46,7 +46,6 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("trigger occurred");
         if (other.CompareTag("Enemy") && !origin.CompareTag("Enemy"))
         {
             var pb = other.gameObject.GetComponent<EnemyBehavior>();

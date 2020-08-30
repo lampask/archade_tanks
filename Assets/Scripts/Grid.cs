@@ -75,7 +75,6 @@ public class Grid : MonoBehaviour
         starter.text = GameTime == 0 ? "- INSERT COIN TO PLAY -" : "- PRESS START TO PLAY -";
         gameTimeChanged.AddListener(() =>
         {
-            Debug.Log(GameTime.ToString(CultureInfo.InvariantCulture));
             timer.text = $"{Mathf.Floor(GameTime/60).ToString(CultureInfo.InvariantCulture).PadLeft(2, '0')}:{(GameTime%60).ToString(CultureInfo.InvariantCulture).PadLeft(2, '0')}";
             starter.text = GameTime == 0 ? "- INSERT COIN TO PLAY -" : "- PRESS START TO PLAY -";
             });

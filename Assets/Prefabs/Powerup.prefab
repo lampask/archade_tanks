@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8105603265558540960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 45, y: 45, z: 1}
+  m_LocalScale: {x: 75, y: 75, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.0141509175, b: 0.70223874, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 30cf84f823729904f8eabd022817203f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.16, y: 0.16}
@@ -271,3 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpSound: {fileID: 8300000, guid: 0591ee38f252fba429754c1785b2802d, type: 3}
+  volume: 0.4
+  a: {fileID: 21300000, guid: 197ff380f6dd3d946805ebcabbf9bbdc, type: 3}
+  b: {fileID: 21300000, guid: a178f508cb8e76e42bc710771ddce9b8, type: 3}
+  c: {fileID: 21300000, guid: c2364c13e99061748a6741b90d2af958, type: 3}
