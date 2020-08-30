@@ -52,6 +52,11 @@ public class Projectile : MonoBehaviour
             var pb = other.gameObject.GetComponent<EnemyBehavior>();
             if (other.gameObject != origin) pb.TakeHit();
 
+            if(origin.TryGetComponent<PlayerBehaviour>(out PlayerBehaviour component))
+            {
+                component.enemiesKilled++;
+            }
+
             if (origin.CompareTag("Player1"))
             {
                 scoreHandler.addScoreToPlayerOne(20);
