@@ -21,6 +21,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform livesContainer;
     public GameObject hearthImage;
+   
     
     public AudioClip bounceSound;
     public AudioClip shootSound;

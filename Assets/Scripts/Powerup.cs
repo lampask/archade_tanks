@@ -13,7 +13,8 @@ public class Powerup : MonoBehaviour
     private void Start()
     {
         camRef = Camera.main;
-        powerups.Add((id) => {
+        powerups.Add((id) =>
+        {
             id.lives++;
             Instantiate(id.hearthImage, id.livesContainer);
         });
@@ -21,6 +22,20 @@ public class Powerup : MonoBehaviour
         powerups.Add((id) =>
         {
             id.addAmmo();
+        });
+
+        powerups.Add((id) =>
+        {
+            foreach(var enemy in FindObjectsOfType<EnemyBehavior>())
+            {
+                if (enemy.slowTimeCounter == 0) {
+                    enemy.SlowTime();
+                }
+                else
+                {
+                    enemy.slowTimeCounter = 10;
+                }
+            }
         });
     }
 
