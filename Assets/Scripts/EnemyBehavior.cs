@@ -20,6 +20,8 @@ public class EnemyBehavior : MonoBehaviour
     public Vector2 directions;
     private int counter = 0;
 
+    public float slowTimeCounter = 0f;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -98,11 +100,11 @@ public class EnemyBehavior : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        if (Random.Range(0, 10) < 4)
-        {
+        //if (Random.Range(0, 10) < 4)
+        //{
             // DROP
             Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
-        }
+        //}
         
         Destroy(gameObject);
     }
@@ -118,5 +120,22 @@ public class EnemyBehavior : MonoBehaviour
             sr.color = baseCol;
             yield return new WaitForSeconds(.2f);
         }
+    }
+
+    public void SlowTime()
+    {
+        StartCoroutine(SlowTimeCourutine());
+    }
+
+    private IEnumerator SlowTimeCourutine()
+    {
+        var timeHolder = waitTime;
+        waitTime = waitTime * 3;
+        slowTimeCounter = 5;
+        for (; slowTimeCounter > 0; slowTimeCounter--)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        waitTime = timeHolder;
     }
 }
