@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class EnemyBehavior : MonoBehaviour
     public int fieldsBetweenShoot = 6;
     public float volume = 0.05f;
     private Grid playBoardData;
-    private Vector2 directions;
+    public Vector2 directions;
     private int counter = 0;
 
 
@@ -89,9 +91,19 @@ public class EnemyBehavior : MonoBehaviour
     {
         //StartCoroutine(HitEffect());
         AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position,volume);
+        if (--Grid.instance.aliveEnemies == 0)
+        {
+            Grid.instance.nextLevel.Invoke();
+            Time.timeScale = 0;
+        }
+
+        if (Random.Range(0, 10) < 4)
+        {
+            // DROP
+        }
         Destroy(gameObject);
     }
-
+    
     private IEnumerator HitEffect()
     {
         var sr = GetComponent<SpriteRenderer>();

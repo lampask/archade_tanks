@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] int numberOfEnemies = 5;
-    [SerializeField] GameObject enemy;
-    [SerializeField] int unitSize = 20;
-    [SerializeField] Grid playBoardData;
+    [SerializeField] public GameObject enemy;
+    [SerializeField] private int unitSize = 20;
+    [SerializeField] public Grid playBoardData;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        for (int i = 0; i < numberOfEnemies; i++)
+        Grid.instance.gameStart.AddListener(() =>
+        {
+            Spawn(Grid.instance.maxEnemies);
+            Grid.instance.maxEnemies += Random.Range(0, 2);
+        });
+        
+    }
+
+    public void Spawn(int num)
+    {
+        for (int i = 0; i < num; i++)
         {
             var xPosition = 0;
             var yPosition = 0;
@@ -23,7 +32,10 @@ public class EnemySpawner : MonoBehaviour
            
 
             Instantiate(enemy, new Vector3(xPosition * unitSize, yPosition * unitSize, 0),
-                            Quaternion.identity);
+                Quaternion.identity);
         }
+
+        Grid.instance.aliveEnemies = num;
+        Grid.instance.maxEnemies = num;
     }
-}
+ }

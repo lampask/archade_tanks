@@ -1,6 +1,8 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class Grid : MonoBehaviour
@@ -11,13 +13,29 @@ public class Grid : MonoBehaviour
     public int bottomOffset = 40;
     [Header("Resources")] public GameObject data;
     public Camera camRef;
-
+    public TMP_Text countdown;
+    public TMP_Text starter;
+    public AudioClip winSound;
+    public AudioClip gameMusic;
+    public AudioClip menuMusic;
+    public AudioClip tickSound;
+    public AudioClip confirmSound;
+    
     private float _scale = 125f;
+
+    public int maxEnemies = 2;
+    [HideInInspector] public int aliveEnemies;
 
     public List<Sprite> baseTiles = new List<Sprite>();
     public List<LevelData> levels = new List<LevelData>();
     public List<GameObject> blocks = new List<GameObject>();
 
+    public bool gameStarted;
+    public UnityEvent gameStart;
+    public UnityEvent nextLevel;
+
+    private AudioSource _cas;
+    
     private void Awake()
     {
         if (instance == null || instance.Equals(null))
@@ -28,16 +46,66 @@ public class Grid : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Time.timeScale = 0;
     }
 
     private void Start()
     {
-        camRef.transform.position = dimensions / 2 * _scale / 6.25f - Vector2.one * _scale / 6.25f / 2f;
-        camRef.transform.position += Vector3.back * 10;
-        
-        Generate(currentLevel);
+        _cas = camRef.GetComponent<AudioSource>();
+        StartCoroutine(Flash(0.5f));
+        gameStart.AddListener(() =>
+        {
+            _cas.Pause();
+            camRef.transform.position = dimensions / 2 * _scale / 6.25f - Vector2.one * _scale / 6.25f / 2f;
+            camRef.transform.position += Vector3.back * 10;
+            starter.gameObject.SetActive(false);
+            StartCoroutine(Countdown(3));
+            Generate(Random.Range(0, levels.Count));
+        });
+        nextLevel.AddListener((() =>
+        {
+            AudioSource.PlayClipAtPoint(winSound, camRef.transform.position, 0.05f);
+            for (var i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+            gameStart.Invoke();
+        }));
     }
 
+    private IEnumerator Flash(float s)
+    {
+        while (!gameStarted)
+        {
+            starter.color = Color.clear;
+            yield return new WaitForSecondsRealtime(s);
+            starter.color = Color.white;
+            yield return new WaitForSecondsRealtime(s);
+        }
+    }
+
+    private IEnumerator Countdown(int s)
+    {
+        countdown.gameObject.SetActive(true);
+        var i = 0;
+        while (!i.Equals(s))
+        {
+            AudioSource.PlayClipAtPoint(tickSound, camRef.transform.position, 0.05f);
+            countdown.text = (s - i).ToString();
+            i++;
+            yield return new WaitForSecondsRealtime(1);
+        }
+        AudioSource.PlayClipAtPoint(confirmSound, camRef.transform.position, 0.1f);
+        countdown.text = "0";
+        Time.timeScale = 1;
+        yield return new WaitForSecondsRealtime(0.5f);
+        countdown.gameObject.SetActive(false);
+        _cas.clip = gameMusic;
+        _cas.Play();
+    }
+
+    
     public void Generate(int level)
     {
         var l = levels[level];

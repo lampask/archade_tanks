@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using TMPro;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -17,33 +15,48 @@ public class PlayerBehaviour : MonoBehaviour
     public int score;
     public int lives = 10;
     public int ammo = 5;
-    
-    [Header("Resources")] 
+
+    [Header("Resources")] public Camera camRef;
     public Grid playBoardData;
     public GameObject projectilePrefab;
     public Transform livesContainer;
     public GameObject hearthImage;
+    
     public AudioClip bounceSound;
     public AudioClip shootSound;
     public AudioClip explosionSound;
+    public AudioClip menuSound;
+    
     public float volume = 0.1f;
     public TMP_Text pauseText;
     private bool paused = false;
 
-
+    
     private Color _cHolder;
     private float _snapshot;
     private bool _firing = false;
 
     private void Start()
     {
-        _snapshot = Time.time;
-        _cHolder = GetComponent<SpriteRenderer>().color;
-        for (var i = 0; i < lives; i++)
-        {
-            Instantiate(hearthImage, livesContainer);
-        }
         pauseText.gameObject.SetActive(false);
+        Grid.instance.gameStart.AddListener(() =>
+        {
+            if (!Grid.instance.gameStarted)
+            {
+                _cHolder = GetComponent<SpriteRenderer>().color;
+                for (var i = 0; i < lives; i++)
+                {
+                    Instantiate(hearthImage, livesContainer);
+                }
+            }
+            StartCoroutine(Snapshot(3));
+        });
+    }
+
+    private IEnumerator Snapshot(int s)
+    {
+        yield return new WaitForSeconds(s);
+        _snapshot = Time.time;
     }
 
     private void Update()
@@ -68,19 +81,44 @@ public class PlayerBehaviour : MonoBehaviour
                         Vector3.back, 20);
                     
                     // MORE CHECKS
-                    var leftHit = Physics2D.Raycast(
-                        transform.position + new Vector3(directions.x, directions.y, 0) * unitSize,
-                        Vector3.back, 20);
+                    
                     var rightHit = Physics2D.Raycast(
-                        transform.position + new Vector3(directions.x, directions.y, 0) * unitSize,
+                        transform.position + new Vector3(directions.x == 0 ? 1 : directions.x, directions.y == 0 ? 1 : directions.y, 0) * unitSize,
                         Vector3.back, 20);
+                    if (rightHit.collider != null)
+                    {
+                        if (rightHit.collider.CompareTag("Enemy"))
+                        {
+                            var d = rightHit.collider.gameObject.GetComponent<EnemyBehavior>();
+                            if (new Vector3(d.directions.x, d.directions.y, 0) +
+                                rightHit.collider.gameObject.transform.position == transform.position + new Vector3(directions.x, directions.y, 0))
+                            {
+                                directions = -directions;
+                            }
+                        } 
+                    }
+                    
+                    var leftHit = Physics2D.Raycast(
+                        transform.position + new Vector3(directions.x == 0 ? -1 : directions.x, directions.y == 0 ? -1 : directions.y, 0) * unitSize,
+                        Vector3.back, 20);
+                    if (leftHit.collider != null)
+                    {
+                        if (leftHit.collider.CompareTag("Enemy"))
+                        {
+                            var d = leftHit.collider.gameObject.GetComponent<EnemyBehavior>();
+                            if (new Vector3(d.directions.x, d.directions.y, 0) +
+                                leftHit.collider.gameObject.transform.position == transform.position + new Vector3(directions.x, directions.y, 0))
+                            {
+                                directions = -directions;
+                            }
+                        } 
+                    }
                     
                     if (hit.collider != null)
                     {
                         if (hit.collider.CompareTag("Obstacle"))
                         {
                             TakeHit();
-                            AudioSource.PlayClipAtPoint(bounceSound, transform.position, volume);
                             directions = -directions;
                         }
 
@@ -125,25 +163,20 @@ public class PlayerBehaviour : MonoBehaviour
     private void OnFire(InputValue _)
     {
         if (!_firing)
-        {
             _firing = true;
-        }
-        Debug.Log($"{gameObject.name} Fire");
     }
 
     private void OnMenu(InputValue _)
     {
-        Debug.Log("Pause");
-        paused = !paused;
-        if (paused)
+        if (!Grid.instance.gameStarted)
         {
-            Time.timeScale = 0;
-            
+            Grid.instance.gameStart.Invoke();
+            Grid.instance.gameStarted = true;
+            return;
         }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        AudioSource.PlayClipAtPoint(menuSound, camRef.transform.position, volume);
+        paused = !paused; 
+        Time.timeScale = paused ? 0 : 1; 
         pauseText.gameObject.SetActive(paused);
     }
 
@@ -153,15 +186,16 @@ public class PlayerBehaviour : MonoBehaviour
                             Quaternion.identity).GetComponent<Projectile>();
             proj.direction = directions;
             proj.origin = gameObject;
-        AudioSource.PlayClipAtPoint(shootSound, transform.position, volume);
+        AudioSource.PlayClipAtPoint(shootSound, camRef.transform.position, volume);
     }
 
     public void TakeHit()
     {
+        AudioSource.PlayClipAtPoint(bounceSound, camRef.transform.position, volume);
         if (lives-- <= 0)
         {
             // TODO: Die
-            AudioSource.PlayClipAtPoint(explosionSound, transform.position, volume);
+            AudioSource.PlayClipAtPoint(explosionSound, camRef.transform.position, volume);
             Debug.Log("Die");
             return;  
         }

@@ -18,6 +18,7 @@
           <e p="Int2dArray.cs" t="Include" />
           <e p="LevelData.cs" t="Include" />
           <e p="PlayerBehaviour.cs" t="Include" />
+          <e p="Powerup.cs" t="Include" />
           <e p="Projectile.cs" t="Include" />
           <e p="ScoreHandler.cs" t="Include" />
         </e>

@@ -46,12 +46,7 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("trigger occurred");
-        if (other.CompareTag("Player1")  || other.CompareTag("Player2"))
-        {
-            var pb = other.gameObject.GetComponent<PlayerBehaviour>();
-            if (other.gameObject != origin) pb.TakeHit();
-        }
-        else if (other.CompareTag("Enemy") && !origin.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && !origin.CompareTag("Enemy"))
         {
             var pb = other.gameObject.GetComponent<EnemyBehavior>();
             if (other.gameObject != origin) pb.TakeHit();
@@ -62,6 +57,19 @@ public class Projectile : MonoBehaviour
             }
             else if (origin.CompareTag("Player2")) {
                 scoreHandler.addScoreToPlayerTwo(20);
+            }
+        }
+        else if (other.CompareTag("Player1")  || other.CompareTag("Player2"))
+        {
+            var pb = other.gameObject.GetComponent<PlayerBehaviour>();
+            if (other.gameObject != origin)
+            {
+                if (pb.lives > 0)
+                {
+                    if (other.CompareTag("Player1") && origin.CompareTag("Player2")) scoreHandler.addScoreToPlayerTwo(10);
+                    else if (other.CompareTag("Player2") && origin.CompareTag("Player1")) scoreHandler.addScoreToPlayerOne(10);
+                    pb.TakeHit();
+                }
             }
         }
         _lifetime = lifespan;
