@@ -44,8 +44,10 @@ public class Powerup : MonoBehaviour
         GameObject other = collision.gameObject;
         if (other.CompareTag("Player1") || other.CompareTag("Player2"))
         {
+            PlayerBehaviour otherPlayerBehavior = other.GetComponent<PlayerBehaviour>();
+            otherPlayerBehavior.powerUpsCollected++;
             AudioSource.PlayClipAtPoint(powerUpSound, camRef.transform.position,volume);
-            powerups[UnityEngine.Random.Range(0, powerups.Count)].Invoke(other.GetComponent<PlayerBehaviour>());
+            powerups[UnityEngine.Random.Range(0, powerups.Count)].Invoke(otherPlayerBehavior);
             Destroy(gameObject);
         }
     }

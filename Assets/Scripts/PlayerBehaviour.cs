@@ -21,7 +21,6 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform livesContainer;
     public GameObject hearthImage;
-   
     
     public AudioClip bounceSound;
     public AudioClip shootSound;
@@ -29,7 +28,13 @@ public class PlayerBehaviour : MonoBehaviour
     public AudioClip menuSound;
     public AudioClip deathSound;
     public AudioClip coinSound;
-    
+
+    [Header("Game Score")]
+    public int enemiesKilled = 0;
+    public int numberOfShoots = 0;
+    public int powerUpsCollected = 0;
+    public int numberOfDeaths = 0;
+
     public float volume = 0.1f;
     public TMP_Text pauseText;
     private bool paused = false;
@@ -198,8 +203,8 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void Fire()
     {
-        
 
+        numberOfShoots++;
         var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0),
                             Quaternion.identity).GetComponent<Projectile>();
         if (ammo != 0)
@@ -215,6 +220,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeHit()
     {
+        numberOfDeaths++;
+
         if (lives == 0) return;
         if (--lives == 0)
         {

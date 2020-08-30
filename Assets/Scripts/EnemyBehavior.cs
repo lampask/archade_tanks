@@ -100,11 +100,11 @@ public class EnemyBehavior : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        //if (Random.Range(0, 10) < 4)
-        //{
+        if (Random.Range(0, 10) < 4)
+        {
             // DROP
             Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
-        //}
+        }
         
         Destroy(gameObject);
     }
