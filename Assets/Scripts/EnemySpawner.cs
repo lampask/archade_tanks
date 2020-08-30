@@ -12,6 +12,10 @@ public class EnemySpawner : MonoBehaviour
     {
         Grid.instance.gameStart.AddListener(() =>
         {
+            foreach (var enemy in FindObjectsOfType<EnemyBehavior>())
+            {
+                Destroy(enemy.gameObject);
+            }
             Spawn(Grid.instance.maxEnemies);
             Grid.instance.maxEnemies += Random.Range(0, 2);
         });

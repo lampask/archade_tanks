@@ -53,6 +53,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (!Grid.instance.gameStarted)
             {
+                enemiesKilled = 0;
+                powerUpsCollected = 0;
+                numberOfShoots = 0;
+                numberOfDeaths = 0;
                 lives = 10;
                 GetComponent<SpriteRenderer>().color = Color.white;
                 _cHolder = GetComponent<SpriteRenderer>().color;

@@ -85,7 +85,20 @@ public class Grid : MonoBehaviour
         {
             if (!gameStarted)
             {
+                ScoreHandler.Instance.player1Score = 0;
+                ScoreHandler.Instance.player2Score = 0;
+                ScoreHandler.Instance.player1ScoreText.text = "0";
+                ScoreHandler.Instance.player2ScoreText.text = "0";
                 maxEnemies = 2;
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
+                }
+
+                foreach (var projectile in FindObjectsOfType<Projectile>())
+                {
+                    Destroy(projectile.gameObject);
+                }
             }
             _cas.Pause();
             gameOver.gameObject.SetActive(false);
@@ -168,7 +181,16 @@ public class Grid : MonoBehaviour
         gameOver.gameObject.SetActive(true);
         var f = gameOver.GetChild(1).GetComponentsInChildren<TMP_Text>();
         f[1].text = ScoreHandler.Instance.player1ScoreText.text;
-        var s = gameOver.GetChild(2);
+        f[2].text = player1.enemiesKilled.ToString();
+        f[3].text = player1.numberOfShoots.ToString();
+        f[4].text = player1.powerUpsCollected.ToString();
+        f[5].text = player1.numberOfDeaths.ToString();
+        var s = gameOver.GetChild(2).GetComponentsInChildren<TMP_Text>();
+        s[1].text = ScoreHandler.Instance.player2ScoreText.text;
+        s[2].text = player2.enemiesKilled.ToString();
+        s[3].text = player2.numberOfShoots.ToString();
+        s[4].text = player2.powerUpsCollected.ToString();
+        s[5].text = player2.numberOfDeaths.ToString();
         _cas.clip = menuMusic;
         gameStarted = false;
         starter.gameObject.SetActive(true);

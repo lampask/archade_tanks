@@ -11,8 +11,8 @@ public class ScoreHandler : MonoBehaviour
     // Start is called before the first frame update
     public TMP_Text player1ScoreText;
     public TMP_Text player2ScoreText;
-    private int player1Score = 0;
-    private int player2Score = 0;
+    public int player1Score = 0;
+    public int player2Score = 0;
    
 
     private void Awake()
