@@ -129,3 +129,4 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 6ff8a5745b724489fa6bec6e6eaab44b, type: 3}
   fieldsBetweenShoot: 6
   volume: 0.05
+  directions: {x: 0, y: 0}

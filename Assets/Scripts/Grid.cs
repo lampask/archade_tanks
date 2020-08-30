@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,11 +16,25 @@ public class Grid : MonoBehaviour
     public Camera camRef;
     public TMP_Text countdown;
     public TMP_Text starter;
+    public TMP_Text timer;
     public AudioClip winSound;
     public AudioClip gameMusic;
     public AudioClip menuMusic;
     public AudioClip tickSound;
     public AudioClip confirmSound;
+
+    private float _gameTime;
+    public float GameTime
+    {
+        get => _gameTime;
+        set
+        {
+            _gameTime = value;
+            gameTimeChanged.Invoke();
+        }
+    }
+
+    public UnityEvent gameTimeChanged;
     
     private float _scale = 125f;
 
@@ -35,7 +50,7 @@ public class Grid : MonoBehaviour
     public UnityEvent nextLevel;
 
     private AudioSource _cas;
-    
+
     private void Awake()
     {
         if (instance == null || instance.Equals(null))
@@ -52,6 +67,13 @@ public class Grid : MonoBehaviour
 
     private void Start()
     {
+        starter.text = GameTime == 0 ? "- INSERT COIN TO PLAY -" : "- PRESS START TO PLAY -";
+        gameTimeChanged.AddListener(() =>
+        {
+            Debug.Log(GameTime.ToString(CultureInfo.InvariantCulture));
+            timer.text = $"{Mathf.Floor(GameTime/60).ToString(CultureInfo.InvariantCulture).PadLeft(2, '0')}:{(GameTime%60).ToString(CultureInfo.InvariantCulture).PadLeft(2, '0')}";
+            starter.text = GameTime == 0 ? "- INSERT COIN TO PLAY -" : "- PRESS START TO PLAY -";
+            });
         _cas = camRef.GetComponent<AudioSource>();
         StartCoroutine(Flash(0.5f));
         gameStart.AddListener(() =>
@@ -74,6 +96,15 @@ public class Grid : MonoBehaviour
         }));
     }
 
+    public IEnumerator Tick()
+    {
+        while (gameStarted && GameTime > 0)
+        {
+            yield return new WaitForSeconds(1);
+            GameTime -= 1;
+        }
+    }
+    
     private IEnumerator Flash(float s)
     {
         while (!gameStarted)
@@ -96,10 +127,10 @@ public class Grid : MonoBehaviour
             i++;
             yield return new WaitForSecondsRealtime(1);
         }
-        AudioSource.PlayClipAtPoint(confirmSound, camRef.transform.position, 0.1f);
+        AudioSource.PlayClipAtPoint(confirmSound, camRef.transform.position, 0.05f);
         countdown.text = "0";
-        Time.timeScale = 1;
         yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 1;
         countdown.gameObject.SetActive(false);
         _cas.clip = gameMusic;
         _cas.Play();

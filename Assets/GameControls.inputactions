@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Coin",
+                    "type": "Button",
+                    "id": "2a14ac79-eb8d-4d11-931f-105df9d1ddc3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -61,6 +69,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "076a7763-3569-4b01-82f5-2d3a40b57825",
+                    "path": "<HID::USB gamepad           >/trigger",
+                    "interactions": "Hold(duration=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Coin",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -26,6 +26,8 @@ public class PlayerBehaviour : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip explosionSound;
     public AudioClip menuSound;
+    public AudioClip deathSound;
+    public AudioClip coinSound;
     
     public float volume = 0.1f;
     public TMP_Text pauseText;
@@ -35,6 +37,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Color _cHolder;
     private float _snapshot;
     private bool _firing = false;
+    private static readonly int Explode = Animator.StringToHash("Explode");
 
     private void Start()
     {
@@ -168,10 +171,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnMenu(InputValue _)
     {
+        if (Grid.instance.GameTime == 0) return;
         if (!Grid.instance.gameStarted)
         {
             Grid.instance.gameStart.Invoke();
-            Grid.instance.gameStarted = true;
+            if (!Grid.instance.gameStarted)
+            {
+                Grid.instance.gameStarted = true;
+                StartCoroutine( Grid.instance.Tick());
+            }
             return;
         }
         AudioSource.PlayClipAtPoint(menuSound, camRef.transform.position, volume);
@@ -179,7 +187,13 @@ public class PlayerBehaviour : MonoBehaviour
         Time.timeScale = paused ? 0 : 1; 
         pauseText.gameObject.SetActive(paused);
     }
-
+    
+    private void OnCoin(InputValue _)
+    {
+        Grid.instance.GameTime += 60*5;
+        AudioSource.PlayClipAtPoint(coinSound, camRef.transform.position, volume);
+    }
+    
     private void Fire()
     {
             var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0),
@@ -191,13 +205,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void TakeHit()
     {
-        AudioSource.PlayClipAtPoint(bounceSound, camRef.transform.position, volume);
-        if (lives-- <= 0)
+        if (lives == 0) return;
+        if (--lives == 0)
         {
-            // TODO: Die
-            AudioSource.PlayClipAtPoint(explosionSound, camRef.transform.position, volume);
-            Debug.Log("Die");
-            return;  
+            AudioSource.PlayClipAtPoint(deathSound, camRef.transform.position, volume);
+            transform.GetChild(0).GetComponent<Animator>().SetTrigger(Explode);
+            _cHolder = new Color(0.2f, 0.2f, 0.2f);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(bounceSound, camRef.transform.position, volume);
         }
 
         var currentLive = livesContainer.GetChild(0);

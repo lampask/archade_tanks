@@ -20,12 +20,12 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/LevelData.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Int2dArray.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScoreHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerBehaviour.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EnemySpawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Powerup.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Grid.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EnemyBehavior.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Grid.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerBehaviour.cs" />
       </list>
     </option>
   </component>
@@ -67,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1598644645126</updated>
-      <workItem from="1598644674280" duration="60668000" />
+      <workItem from="1598644674280" duration="66611000" />
     </task>
     <servers />
   </component>
@@ -80,14 +80,14 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="627" y="258" width="666" height="534" key="find.popup" timestamp="1598721650867">
+    <state x="627" y="258" width="666" height="534" key="find.popup" timestamp="1598778722171">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="627" y="258" width="666" height="534" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1598721650867" />
-    <state x="616" y="243" key="run.anything.popup" timestamp="1598657550701">
+    <state x="627" y="258" width="666" height="534" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1598778722171" />
+    <state x="616" y="243" key="run.anything.popup" timestamp="1598778703382">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1598657550701" />
+    <state x="616" y="243" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1598778703382" />
     <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1598721307236">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
