@@ -1123,7 +1123,7 @@ MonoBehaviour:
   bordered: 0
   score: 0
   lives: 10
-  ammo: 5
+  ammo: 0
   camRef: {fileID: 519420031}
   playBoardData: {fileID: 95562433}
   projectilePrefab: {fileID: 8105603265558540960, guid: 29bccb85ef94ad34a9c154c4decb56fb, type: 3}
@@ -2539,7 +2539,7 @@ MonoBehaviour:
   bordered: 0
   score: 0
   lives: 10
-  ammo: 5
+  ammo: 0
   camRef: {fileID: 519420031}
   playBoardData: {fileID: 95562433}
   projectilePrefab: {fileID: 8105603265558540960, guid: 29bccb85ef94ad34a9c154c4decb56fb, type: 3}

@@ -14,7 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Game Stats")] 
     public int score;
     public int lives = 10;
-    public int ammo = 5;
+    public int ammo = 0;
 
     [Header("Resources")] public Camera camRef;
     public Grid playBoardData;
@@ -182,9 +182,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Fire()
     {
-            var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0),
+        
+
+        var proj = Instantiate(projectilePrefab, transform.position + new Vector3(directions.x * unitSize, directions.y * unitSize, 0),
                             Quaternion.identity).GetComponent<Projectile>();
-            proj.direction = directions;
+        if (ammo != 0)
+        {
+            proj.GetComponent<SpriteRenderer>().color = Color.green;
+            proj.lifespan = 30;
+            ammo--;
+        }
+        proj.direction = directions;
             proj.origin = gameObject;
         AudioSource.PlayClipAtPoint(shootSound, camRef.transform.position, volume);
     }
@@ -215,5 +223,10 @@ public class PlayerBehaviour : MonoBehaviour
             sr.color = _cHolder;
             yield return new WaitForSeconds(.15f);
         }
+    }
+
+    public void addAmmo()
+    {
+        ammo += 5;
     }
 }
